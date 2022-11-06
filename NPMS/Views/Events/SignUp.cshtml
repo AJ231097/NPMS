@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    <h2>Hurray!! @User.Identity.Name</h2>
+    <p>You Have been Signed Up for the Event and details will be emailed to you.</p>
+    <p>You may click logout</p>
+}

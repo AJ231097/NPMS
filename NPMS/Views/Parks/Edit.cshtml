@@ -1,0 +1,44 @@
+﻿@model NPMS.Models.Parks
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Parks</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ParkId" />
+            <div class="form-group">
+                <label asp-for="ParkName" class="control-label">Park Name</label>
+                <input asp-for="ParkName" class="form-control" />
+                <span asp-validation-for="ParkName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkDescription" class="control-label">Park Description</label>
+                <input asp-for="ParkDescription" class="form-control" />
+                <span asp-validation-for="ParkDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkImageUrl" class="control-label">Park Image Url</label>
+                <input asp-for="ParkImageUrl" class="form-control" />
+                <span asp-validation-for="ParkImageUrl" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

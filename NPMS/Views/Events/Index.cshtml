@@ -1,0 +1,54 @@
+﻿@model IEnumerable<NPMS.Models.Events>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Events</h1>
+@if (User.IsInRole("Administrators"))
+{
+    <p>
+        <a asp-action="Create">Create New Event</a>
+    </p>
+}
+
+<p><font color="red">Events at different National Parks. Please do remember that only logged in users will be able to sign up for events</font></p>
+<p>Please purchase the event pass.</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventDescription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDescription)
+            </td>
+            <td>
+                <a asp-action="SignUp" asp-route-id="@item.EventId">Interested? Click Here</a>
+            </td>
+                @if (User.IsInRole("Administrators"))
+                {
+
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+            </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>

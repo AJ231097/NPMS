@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<NPMS.Models.Parks>
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager;
+
 @{
     ViewData["Title"] = "Index";
 }
 
+<h1> Parks</h1>&nbsp;
+<p>
+    <a asp-action="Create">Add New Park</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
                 @Html.DisplayNameFor(model => model.ParkName)
             </th>
             <th>
@@ -35,11 +38,17 @@
                     <img src="@Url.Content(item.ParkImageUrl)" width="200" height="200" alt="Image"/>
                 }
             </td>
-                <td>
-                    <a asp-action="BuyPass" asp-route-id="@item.ParkId">Buy Pass</a> |
-                    <a asp-action="ViewEvents" asp-route-id="@item.ParkId">View Events</a> |
-                </td>
-            </tr>
+                @if (User.IsInRole("Administrators"))
+                {
+
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ParkId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ParkId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ParkId">Delete</a>
+            </td>
+            }
+        </tr>
 }
-</tbody>
+    </tbody>
 </table>
