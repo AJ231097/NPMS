@@ -14,7 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>Pass Price</th>
-                <th>Total Price</th>
+                <!--<th>Total Price</th>-->
             </tr>
 
             @foreach (var item in ViewBag.cart)
@@ -25,7 +25,7 @@
 
                     <td>@item.PassPrice</td>
 
-                    <td>@ViewBag.total</td>
+                    <!--<td>@ViewBag.total</td>-->
                     <td>
                         <form method="post" asp-action="Remove" asp-controller="Cart" asp-route-ProductId="@item.Id">
                             <input type="submit" value="Remove from cart">
@@ -34,6 +34,10 @@
                 </tr>
 
             }
+            <br>
+            <td><b>Total Price is</b> @ViewBag.total
+
+    </td>
 
 
         </table>
