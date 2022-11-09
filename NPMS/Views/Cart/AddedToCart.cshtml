@@ -10,7 +10,7 @@
     <body>
 
         <h3>Cart Page</h3>
-        <table cellpadding="2" cellspacing="2" border="1">
+        <table>
             <tr>
                 <th>ID</th>
                 <th>Pass Price</th>
@@ -20,18 +20,20 @@
             @foreach (var item in ViewBag.cart)
             {
                 <tr>
-                    <form method="post" asp-action="Remove" asp-controller="Cart" asp-route-ProductId="@item.Id">
-                        <input type="submit" value="Remove from cart">
-                    </form>
+
                     <td>@item.Id</td>
 
                     <td>@item.PassPrice</td>
+
+                    <td>@ViewBag.total</td>
+                    <td>
+                        <form method="post" asp-action="Remove" asp-controller="Cart" asp-route-ProductId="@item.Id">
+                            <input type="submit" value="Remove from cart">
+                        </form>
+                    </td>
                 </tr>
 
             }
-            <tr>
-                Total is @ViewBag.total
-            </tr>
 
 
         </table>

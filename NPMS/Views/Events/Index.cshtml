@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.EventDescription)
             </td>
             <td>
-                <a asp-action="SignUp" asp-route-id="@item.EventId">Interested? Click Here</a>
+                <a asp-controller="Cart" asp-action="Index" asp-route-id="@item.EventId">Interested? Click Here</a>
             </td>
                 @if (User.IsInRole("Administrators"))
                 {

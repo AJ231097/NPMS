@@ -15,6 +15,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.PassPrice)
             </th>
+            <th>Buy</th>
 
         </tr>
     </thead>
@@ -31,10 +32,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PassPrice)
                 </td>
+                <td>
                 <form method="post" asp-controller="Cart" asp-action="AddOrder" asp-route-Id="@item.Id">
                     <input type="submit" value="Add to cart">
-                </form>
-
+                   </form>
+                </td>
             </tr>
         }
     </tbody>

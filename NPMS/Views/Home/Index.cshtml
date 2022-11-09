@@ -36,7 +36,7 @@
                 }
             </td>
                 <td>
-                    <a asp-action="BuyPass" asp-route-id="@item.ParkId">Buy Pass</a> |
+                    <a asp-controller="Cart" asp-action="Index" asp-route-id="@item.ParkId">Buy Pass</a> |
                     <a asp-action="ViewEvents" asp-route-id="@item.ParkId">View Events</a> |
                 </td>
             </tr>

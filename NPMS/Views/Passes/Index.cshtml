@@ -35,11 +35,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PassPrice)
             </td>
-
-            <td>
-                        <!--<a asp-action="AddOrder" asp-route-id="@item.Id" asp-controller="Cart">Add to Cart</a>-->
-                        <a asp-action="Success" asp-route-id="@item.Id" asp-controller="Checkout">Buy Pass</a>
-            </td>
             
                 @if (User.IsInRole("Administrators"))
                 {

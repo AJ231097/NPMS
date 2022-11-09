@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using Microsoft.AspNetCore.Identity;
 using NuGet.Packaging.Signing;
 using System.Configuration;
+using WebGoatCore.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<NPMSContext>(options =>
@@ -23,6 +24,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 });
 
+//builder.Services.AddScoped<IPasswordHasher<IdentityUser>, Argon2Hasher<IdentityUser>>();
+builder.Services.Configure<PasswordHasherOptions>(option =>
+{
+    option.IterationCount = 160000;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
