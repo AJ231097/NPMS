@@ -51,7 +51,7 @@ namespace NPMS.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ParkId,ParkName,ParkDescription,ParkImageUrl")] Parks parks)
@@ -64,7 +64,7 @@ namespace NPMS.Controllers
             }
             return View(parks);
         }
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         // GET: Parks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,7 +81,7 @@ namespace NPMS.Controllers
             return View(parks);
         }
 
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ParkId,ParkName,ParkDescription,ParkImageUrl")] Parks parks)
@@ -115,7 +115,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Parks/Delete/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Parks == null)
@@ -134,7 +134,7 @@ namespace NPMS.Controllers
         }
 
         // POST: Parks/Delete/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

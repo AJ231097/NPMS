@@ -6,7 +6,7 @@
 }
 
 <h1>Passes</h1>
- @if (User.IsInRole("Administrators"))
+ @if (User.IsInRole("Admins"))
  {
 
  
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.PassPrice)
             </td>
             
-                @if (User.IsInRole("Administrators"))
+                @if (User.IsInRole("Admins"))
                 {
 
 

@@ -45,7 +45,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Events/Create
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public IActionResult Create()
         {
             return View();
@@ -56,7 +56,7 @@ namespace NPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Create([Bind("EventId,EventName,EventDescription")] Events events)
         {
             if (ModelState.IsValid)
@@ -69,7 +69,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Events/Edit/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Events == null)
@@ -90,7 +90,7 @@ namespace NPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,EventDescription")] Events events)
         {
             if (id != events.EventId)
@@ -122,7 +122,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Events/Delete/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Events == null)
@@ -143,7 +143,7 @@ namespace NPMS.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Events == null)

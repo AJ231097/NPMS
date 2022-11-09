@@ -45,7 +45,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Passes/Create
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public IActionResult Create()
         {
             return View();
@@ -54,7 +54,7 @@ namespace NPMS.Controllers
         // POST: Passes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Create([Bind("Id,PassName,PassPrice")] Passes passes)
         {
             if (ModelState.IsValid)
@@ -67,7 +67,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Passes/Edit/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Passes == null)
@@ -88,7 +88,7 @@ namespace NPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,PassName,PassPrice")] Passes passes)
         {
             if (id != passes.Id)
@@ -120,7 +120,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Passes/Delete/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Passes == null)
@@ -141,7 +141,7 @@ namespace NPMS.Controllers
         // POST: Passes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Passes == null)
