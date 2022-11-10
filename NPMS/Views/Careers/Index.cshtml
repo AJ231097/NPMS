@@ -48,7 +48,16 @@
                 @Html.DisplayFor(modelItem => item.CareerPlace)
             </td>
             <td>
-                <a asp-action="" asp-route-id="@item.CareerId">Upload</a>
+                    <form enctype="multipart/form-data" method="post" asp-controller="Careers" asp-action="UploadFile" runat="server">
+                        <dl>
+                            <dd>
+                                <input type="file" name="FormFile" id="FormFile" runat="server">
+
+                            </dd>
+                        </dl>
+                        <input class="btn btn-dark" type="submit" value="Upload" runat="server" />
+                    </form>
+
             </td>
                 @if (User.IsInRole("Admins"))
                 {

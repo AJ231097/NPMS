@@ -68,7 +68,7 @@ namespace NPMS.Controllers
                 else
                 {
                     //ModelState.AddModelError(string.Empty, "Verify the User");
-                    return View("Error.cshtml","Email");
+                    return View("Error","Email");
                 }
                     
                     

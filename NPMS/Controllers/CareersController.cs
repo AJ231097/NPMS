@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -165,5 +166,56 @@ namespace NPMS.Controllers
         {
           return _context.Careers.Any(e => e.CareerId == id);
         }
+        [RequestSizeLimit(3145728)]
+        public async Task<IActionResult> UploadFile(IFormFile FormFile)
+        {
+            ViewBag.Message = "";
+            try
+            {
+                string file = Path.GetFileName(FormFile.FileName);
+                var ext = Path.GetExtension(file).ToLowerInvariant();
+                string[] permittedExtensions = { ".docx", ".pdf" };
+                if (!string.IsNullOrEmpty(ext) && permittedExtensions.Contains(ext))
+                {
+                    string newFilename = $"{Path.GetRandomFileName()}{Guid.NewGuid()}.{ext}";
+                    string tempFolderPath = GetTemporaryDirectory();
+                    string path = Path.Combine(tempFolderPath, newFilename);
+
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await FormFile.CopyToAsync(fileStream);
+                        
+                    }
+                    return View("UploadSuccess");
+
+                }
+                else
+                {
+                    return View("UploadFileError");
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = $"Error occurred while reading the file. {ex.Message}";
+            }
+            return View("UploadFileError");
+
+
+
+
+        }
+        [HttpGet]
+        
+        public IActionResult UploadSuccess()=>View();
+        private string GetTemporaryDirectory()
+        {
+            string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDirectory);
+            return tempDirectory;
+        }
+
+
     }
 }
+
