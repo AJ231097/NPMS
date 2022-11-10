@@ -101,55 +101,6 @@ namespace NPMS.Controllers
             return -1;
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-        //    var cart = SessionHelper.GetObjectFromJson<List<Passes>>(HttpContext.Session, "cart");
-        //    ViewBag.cart = cart;
-        //    ViewBag.total = cart.Sum(item => item.PassPrice);
-        //    return View("AddedToCart");
-        //}
 
-        //private int isExist(int id)
-        //{
-        //    List<Passes> cart = SessionHelper.GetObjectFromJson<List<Passes>>(HttpContext.Session, "cart");
-        //    for (int i = 0; i < cart.Count; i++)
-        //    {
-        //        if (cart[i].Id.Equals(id))
-        //        {
-        //            return i;
-        //        }
-        //    }
-        //    return -1;
-        //}
-        //public IActionResult Buy(int id)
-        //{
-        //    Passes passes = new Passes();
-        //    if (SessionHelper.GetObjectFromJson<List<Passes>>(HttpContext.Session, "cart") == null)
-        //    {
-        //        List<Passes> cart = new List<Passes>();
-        //        cart.Add(new Passes { Id = id });
-        //        SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-
-        //    }
-        //    else
-        //    {
-        //        List<Passes> cart = SessionHelper.GetObjectFromJson<List<Passes>>(HttpContext.Session, "cart");
-        //        int index = isExist(id);
-        //        cart.Add(new Passes { Id = id });
-        //        SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-        //    }
-        //    return RedirectToAction("Index");
-
-        //}
-
-        //public IActionResult Remove(int id)
-        //{
-        //    List<Passes> cart = SessionHelper.GetObjectFromJson<List<Passes>>(HttpContext.Session, "cart");
-        //    int index = isExist(id);
-        //    cart.RemoveAt(index);
-        //    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-        //    return RedirectToAction("Index");
-
-        //}
     }
 }

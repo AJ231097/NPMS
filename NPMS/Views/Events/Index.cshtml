@@ -11,13 +11,12 @@
         <a asp-action="Create">Create New Event</a>
     </p>
 }
-@if (User.IsInRole("Users"))
-{
+
 
 
 <p><font color="red">Events at different National Parks. Please do remember that only logged in users will be able to sign up for events</font></p>
 <p>Please purchase the event pass.</p>
-}
+
 <table class="table">
     <thead>
         <tr>
@@ -39,13 +38,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EventDescription)
             </td>
-                @if (User.IsInRole("Users"))
-                {
 
                     <td>
                         <a asp-controller="Cart" asp-action="Index" asp-route-id="@item.EventId">Interested? Click Here</a>
             </td>
-            }
+            
                 @if (User.IsInRole("Admins"))
                 {
 
