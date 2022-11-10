@@ -14,10 +14,12 @@ namespace NPMS.Controllers
     public class ParksController : Controller
     {
         private readonly NPMSContext _context;
+        private readonly ILogger<ParksController> _logger;
 
-        public ParksController(NPMSContext context)
+        public ParksController(NPMSContext context, ILogger<ParksController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Parks
@@ -62,6 +64,7 @@ namespace NPMS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(parks);
         }
         [Authorize(Roles = "Admins")]
@@ -78,6 +81,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)202, "{parkid} edited by {user} on {date}", id, username, DateTime.Now);
             return View(parks);
         }
 
@@ -129,7 +134,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
-
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)203, "{passid} deleted by {user} on {date}", id, username, DateTime.Now);
             return View(parks);
         }
 
@@ -148,7 +154,6 @@ namespace NPMS.Controllers
             {
                 _context.Parks.Remove(parks);
             }
-            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

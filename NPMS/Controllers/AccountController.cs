@@ -11,12 +11,15 @@ namespace NPMS.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly ILogger<AccountController> _logger;
 
         public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            ILogger<AccountController> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            _logger = logger;
         }
 
 
@@ -92,9 +95,13 @@ namespace NPMS.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string? returnUrl)
         {
-            return View();
+
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            }); ;
         }
 
         [HttpPost]
@@ -102,13 +109,26 @@ namespace NPMS.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+                string message = $"Sign in attempt by user {model.Username} with password {model.Password}";
+                _logger.LogInformation(message);
+                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure:true);
                 if(result.Succeeded)
                 {
                  return RedirectToAction("Index", "Home");
                         
                 }
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+               
+                if(result.IsLockedOut)
+                {
+                    message = $"The user {model.Username} account is locked.";
+                    _logger.LogWarning(message);
+                    return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                    
+                }
             }
             return View(model);
         }

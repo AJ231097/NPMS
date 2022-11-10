@@ -15,10 +15,12 @@ namespace NPMS.Controllers
     public class CareersController : Controller
     {
         private readonly NPMSContext _context;
+        private readonly ILogger<CareersController> _logger;
 
-        public CareersController(NPMSContext context)
+        public CareersController(NPMSContext context, ILogger<CareersController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Careers
@@ -84,6 +86,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)204, "{Careerid} edited by {user} on {date}", id, username, DateTime.Now);
             return View(careers);
         }
 
@@ -138,6 +142,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)205, "{Careerid} deleted by {user} on {date}", id, username, DateTime.Now);
 
             return View(careers);
         }

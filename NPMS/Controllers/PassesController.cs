@@ -14,10 +14,12 @@ namespace NPMS.Controllers
     public class PassesController : Controller
     {
         private readonly NPMSContext _context;
+        private readonly ILogger<PassesController> _logger;
 
-        public PassesController(NPMSContext context)
+        public PassesController(NPMSContext context, ILogger<PassesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Passes
@@ -80,6 +82,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)200, "{passid} edited by {user} on {date}", id, username, DateTime.Now);
             return View(passes);
         }
 
@@ -134,6 +138,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)201, "{passid} deleted by {user} on {date}", id, username, DateTime.Now);
 
             return View(passes);
         }
