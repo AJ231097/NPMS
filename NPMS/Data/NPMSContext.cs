@@ -38,6 +38,8 @@ namespace NPMS.Models
 
         public DbSet<OrderDetails> OrderDetails { get; set; }      
 
+        public DbSet<Careers> Careers { get; set; }
+
 
 
     }

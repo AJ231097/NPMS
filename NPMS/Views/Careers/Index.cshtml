@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NPMS.Models.Careers>
+
+@{
+    ViewData["Title"] = "Careers";
+}
+
+
+
+@if (User.IsInRole("Admins"))
+{
+
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerRecruiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerPlace)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerRecruiter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerPlace)
+            </td>
+            <td>
+                <a asp-action="" asp-route-id="@item.CareerId">Upload</a>
+            </td>
+                @if (User.IsInRole("Admins"))
+                {
+
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CareerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CareerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CareerId">Delete</a>
+            </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>
