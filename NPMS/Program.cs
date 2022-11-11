@@ -32,7 +32,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 //    loggingBuilder.AddFile("app.log", append: true);
 //});
 builder.Services.AddLogging(loggingBuilder => {
-    loggingBuilder.AddFile("app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts =>
+    loggingBuilder.AddFile("logs\\app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts =>
     {
         fileLoggerOpts.FormatLogFileName = fName =>
         {
