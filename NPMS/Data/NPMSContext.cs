@@ -40,6 +40,8 @@ namespace NPMS.Models
 
         public DbSet<Careers> Careers { get; set; }
 
+        public DbSet<Reservations> Reservations { get; set; }
+
 
 
     }

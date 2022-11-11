@@ -1,0 +1,59 @@
+﻿@model NPMS.Models.Reservations
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Reservations</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Rid" />
+            <div class="form-group">
+                <label asp-for="ReservationName" class="control-label"></label>
+                <input asp-for="ReservationName" class="form-control" />
+                <span asp-validation-for="ReservationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeOfEvent" class="control-label"></label>
+                <input asp-for="TypeOfEvent" class="form-control" />
+                <span asp-validation-for="TypeOfEvent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationEmail" class="control-label"></label>
+                <input asp-for="ReservationEmail" class="form-control" />
+                <span asp-validation-for="ReservationEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationDate" class="control-label"></label>
+                <input asp-for="ReservationDate" class="form-control" />
+                <span asp-validation-for="ReservationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkName" class="control-label"></label>
+                <input asp-for="ParkName" class="form-control" />
+                <span asp-validation-for="ParkName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

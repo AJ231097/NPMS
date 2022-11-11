@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NPMS.Models.Reservations>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Reservations</h1>
+
+@if(User.IsInRole("Admins"))
+{
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfEvent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfEvent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationDate)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParkName)
+                </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Rid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}

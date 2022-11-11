@@ -1,0 +1,54 @@
+﻿@model NPMS.Models.Reservations
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Reservations</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ReservationName" class="control-label">The name under reservation has to be done</label>
+                <input asp-for="ReservationName" class="form-control" />
+                <span asp-validation-for="ReservationName" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <label asp-for="TypeOfEvent" class="control-label">Type of Event</label>
+                <input asp-for="TypeOfEvent" class="form-control" />
+                <span asp-validation-for="TypeOfEvent" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label">Contact Number</label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <label asp-for="ReservationEmail" class="control-label">Email to which Details to be sent</label>
+                <input asp-for="ReservationEmail" class="form-control" />
+                <span asp-validation-for="ReservationEmail" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <label asp-for="ReservationDate" class="control-label">Please choose a reservation date</label>
+                <input asp-for="ReservationDate" class="form-control" />
+                <span asp-validation-for="ReservationDate" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <label asp-for="ParkName" class="control-label">Park in which you want your event</label>
+                <input asp-for="ParkName" class="form-control" />
+                <span asp-validation-for="ParkName" class="text-danger"></span>
+            </div>&nbsp;
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
