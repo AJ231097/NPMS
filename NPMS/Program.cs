@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using NuGet.Packaging.Signing;
 using System.Configuration;
 using WebGoatCore.Utils;
+using Microsoft.Extensions.Logging;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<NPMSContext>(options =>
@@ -26,6 +28,18 @@ builder.Services.Configure<IdentityOptions>(options =>
     //options.Password.RequiredUniqueChars = 1;
 
 });
+//builder.Services.AddLogging(loggingBuilder => {
+//    loggingBuilder.AddFile("app.log", append: true);
+//});
+builder.Services.AddLogging(loggingBuilder => {
+    loggingBuilder.AddFile("app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts =>
+    {
+        fileLoggerOpts.FormatLogFileName = fName =>
+        {
+            return String.Format(fName, DateTime.UtcNow);
+        };
+    });
+});
 
 //builder.Services.AddScoped<IPasswordHasher<IdentityUser>, Argon2Hasher<IdentityUser>>();
 builder.Services.Configure<PasswordHasherOptions>(option =>
@@ -38,26 +52,36 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+//    string pathToLog = Path.Combine(Directory.GetCurrentDirectory(), "logs");
+//    if (Directory.Exists(pathToLog) == false)
+//    {
+//        Directory.CreateDirectory(pathToLog);
+//    builder.Logging.AddFile(pathToLog);
+//}
 
-app.UseRouting();
-app.UseSession();
-app.UseAuthentication();
+   // builder.Logging.AddFile(pathToLog);
 
-app.UseAuthorization();
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-app.Run();
+    app.UseRouting();
+    app.UseSession();
+    app.UseAuthentication();
+
+    app.UseAuthorization();
+
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    app.Run();
 
