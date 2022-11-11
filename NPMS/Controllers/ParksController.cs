@@ -82,7 +82,7 @@ namespace NPMS.Controllers
                 return NotFound();
             }
             var username = HttpContext.User.Identity.Name;
-            _logger.LogWarning((EventId)202, "{parkid} edited by {user} on {date}", id, username, DateTime.Now);
+            _logger.LogWarning((EventId)202, "{parkid} edited by {user} on {date}", id, username, DateTime.UtcNow);
             return View(parks);
         }
 
@@ -135,7 +135,7 @@ namespace NPMS.Controllers
                 return NotFound();
             }
             var username = HttpContext.User.Identity.Name;
-            _logger.LogWarning((EventId)203, "{park id} deleted by {user} on {date}", id, username, DateTime.Now);
+            _logger.LogWarning((EventId)203, "{park id} deleted by {user} on {date}", id, username, DateTime.UtcNow);
             return View(parks);
         }
 

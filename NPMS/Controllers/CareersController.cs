@@ -87,7 +87,7 @@ namespace NPMS.Controllers
                 return NotFound();
             }
             var username = HttpContext.User.Identity.Name;
-            _logger.LogWarning((EventId)204, "{Careerid} edited by {user} on {date}", id, username, DateTime.Now);
+            _logger.LogWarning((EventId)204, "{Careerid} edited by {user} on {date}", id, username, DateTime.UtcNow);
             return View(careers);
         }
 
@@ -143,7 +143,7 @@ namespace NPMS.Controllers
                 return NotFound();
             }
             var username = HttpContext.User.Identity.Name;
-            _logger.LogWarning((EventId)205, "{Careerid} deleted by {user} on {date}", id, username, DateTime.Now);
+            _logger.LogWarning((EventId)205, "{Careerid} deleted by {user} on {date}", id, username, DateTime.UtcNow);
 
             return View(careers);
         }
@@ -194,13 +194,13 @@ namespace NPMS.Controllers
                         
                         
                     }
-                    _logger.LogInformation((EventId)106, "Successfully uploaded {filename} to {path} on {date}", newFilename, path, DateTime.Now);
+                    _logger.LogInformation((EventId)106, "Successfully uploaded {filename} to {path} on {date}", newFilename, path, DateTime.UtcNow);
                     return View("UploadSuccess");
 
                 }
                 else
                 {
-                    _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.Now);
+                    _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.UtcNow);
                     return View("UploadFileError");
                     
                 }
@@ -208,7 +208,7 @@ namespace NPMS.Controllers
             catch (Exception ex)
             {
                 //string message = $"Error occurred while reading the file. {ex.Message}";
-                _logger.LogError((EventId)107,"Error uploading in file. Activity performed on {date}",DateTime.Now);
+                _logger.LogError((EventId)107,"Error uploading in file. Activity performed on {date}",DateTime.UtcNow);
             }
             return View("UploadFileError");
 

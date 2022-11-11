@@ -44,7 +44,7 @@ namespace NPMS.Controllers
                     Email = model.Email
                 };
                 //string message = $"Attempting to Register a user {model.Username}";
-                _logger.LogInformation((EventId)101,"Attempting to register a user {user} on {date}",model.Username,DateTime.Now);
+                _logger.LogInformation((EventId)101,"Attempting to register a user {user} on {date}",model.Username,DateTime.UtcNow);
 
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -71,7 +71,7 @@ namespace NPMS.Controllers
                 {
                     await signInManager.SignInAsync(user, isPersistent: false);
                     //message = $"Successfully registered user {model.Username}";
-                    _logger.LogInformation((EventId)102, "Successfully registered a user {user} on {date}", model.Username, DateTime.Now);
+                    _logger.LogInformation((EventId)102, "Successfully registered a user {user} on {date}", model.Username, DateTime.UtcNow);
                 }
                 else
                 {
@@ -114,9 +114,7 @@ namespace NPMS.Controllers
         {
             if(ModelState.IsValid)
             {
-                //string message = $"Sign in attempt by user {model.Username} with password {model.Password}";
-                //_logger.LogWarning(message);
-                _logger.LogInformation((EventId)103, "Sign in attempt by user {user} with password {password} on {date}", model.Username,model.Password, DateTime.Now);
+                _logger.LogInformation((EventId)103, "Sign in attempt by user {user} with password {password} on {date}", model.Username,model.Password, DateTime.UtcNow);
                 var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure:true);
                 if(result.Succeeded)
                 {
@@ -128,15 +126,14 @@ namespace NPMS.Controllers
                 {
                     //message = $"The user {model.Username} account is locked.";
                     //_logger.LogWarning(message);
-                    _logger.LogWarning((EventId)104, "User {user} attempting to login on {date} when locked out", model.Username, DateTime.Now);
+                    _logger.LogWarning((EventId)104, "User {user} attempting to login on {date} when locked out", model.Username, DateTime.UtcNow);
                     return View("Lockout");
                 }
                 else
                 {
+                    _logger.LogWarning((EventId)105, "Failed attempt by user {user} with password {password} on {date}", model.Username, model.Password, DateTime.UtcNow);
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-                    //string invalid_login_message = $"Failed attempt by user {model.Username} with password {model.Password}";
-                    //_logger.LogWarning(invalid_login_message);
-                    _logger.LogWarning((EventId)105, "Failed attempt by user {user} with password {password} on {date}", model.Username,model.Password, DateTime.Now);
+                    
 
                 }
             }
