@@ -42,6 +42,8 @@ namespace NPMS.Controllers
                 {
                     Email = model.Email
                 };
+                string message = $"Attempting to Register a user {model.Username}";
+                _logger.LogInformation(message);
 
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -67,6 +69,8 @@ namespace NPMS.Controllers
                 if(emailStatus)
                 {
                     await signInManager.SignInAsync(user, isPersistent: false);
+                    message = $"Successfully registered user {model.Username}";
+                    _logger.LogInformation(message);
                 }
                 else
                 {
@@ -101,7 +105,7 @@ namespace NPMS.Controllers
             return View(new LoginViewModel
             {
                 ReturnUrl = returnUrl
-            }); ;
+            });
         }
 
         [HttpPost]
@@ -110,7 +114,7 @@ namespace NPMS.Controllers
             if(ModelState.IsValid)
             {
                 string message = $"Sign in attempt by user {model.Username} with password {model.Password}";
-                _logger.LogInformation(message);
+                _logger.LogWarning(message);
                 var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure:true);
                 if(result.Succeeded)
                 {
@@ -127,6 +131,8 @@ namespace NPMS.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                    string invalid_login_message = $"Failed attempt by user {model.Username} with password {model.Password}";
+                    _logger.LogWarning(invalid_login_message);
                     
                 }
             }

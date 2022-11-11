@@ -14,10 +14,12 @@ namespace NPMS.Controllers
     public class EventsController : Controller
     {
         private readonly NPMSContext _context;
+        private readonly ILogger<EventsController> _logger;
 
-        public EventsController(NPMSContext context)
+        public EventsController(NPMSContext context, ILogger<EventsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Events
@@ -82,6 +84,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)205, "{Eventid} edited by {user} on {date}", id, username, DateTime.Now);
             return View(events);
         }
 
@@ -136,6 +140,8 @@ namespace NPMS.Controllers
             {
                 return NotFound();
             }
+            var username = HttpContext.User.Identity.Name;
+            _logger.LogWarning((EventId)206, "{Eventid} deleted by {user} on {date}", id, username, DateTime.Now);
 
             return View(events);
         }

@@ -204,6 +204,7 @@ namespace NPMS.Controllers
             catch (Exception ex)
             {
                 string message = $"Error occurred while reading the file. {ex.Message}";
+                _logger.LogError(ex, message);
             }
             return View("UploadFileError");
 
