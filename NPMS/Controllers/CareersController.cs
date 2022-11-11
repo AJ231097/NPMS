@@ -192,19 +192,23 @@ namespace NPMS.Controllers
                     {
                         await FormFile.CopyToAsync(fileStream);
                         
+                        
                     }
+                    _logger.LogInformation((EventId)106, "Successfully uploaded {filename} to {path} on {date}", newFilename, path, DateTime.Now);
                     return View("UploadSuccess");
 
                 }
                 else
                 {
+                    _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.Now);
                     return View("UploadFileError");
+                    
                 }
             }
             catch (Exception ex)
             {
-                string message = $"Error occurred while reading the file. {ex.Message}";
-                _logger.LogError(ex, message);
+                //string message = $"Error occurred while reading the file. {ex.Message}";
+                _logger.LogError((EventId)107,"Error uploading in file. Activity performed on {date}",DateTime.Now);
             }
             return View("UploadFileError");
 

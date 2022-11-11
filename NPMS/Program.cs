@@ -31,6 +31,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 //builder.Services.AddLogging(loggingBuilder => {
 //    loggingBuilder.AddFile("app.log", append: true);
 //});
+//Implementing logging functionality
 builder.Services.AddLogging(loggingBuilder => {
     loggingBuilder.AddFile("logs\\app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts =>
     {
