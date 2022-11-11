@@ -9,7 +9,7 @@ using NuGet.Packaging.Signing;
 using System.Configuration;
 using WebGoatCore.Utils;
 using Microsoft.Extensions.Logging;
-
+using NPMS.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<NPMSContext>(options =>
@@ -28,9 +28,17 @@ builder.Services.Configure<IdentityOptions>(options =>
     //options.Password.RequiredUniqueChars = 1;
 
 });
-//builder.Services.AddLogging(loggingBuilder => {
-//    loggingBuilder.AddFile("app.log", append: true);
-//});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.LoginPath = "/Account/Login";
+    options.SlidingExpiration = true;
+    options.LogoutPath = new PathString("/Account/Logout");
+    options.SessionStore = new MemoryCacheTicketStore();
+});
+builder.Services.AddDistributedMemoryCache();
 //Implementing logging functionality
 builder.Services.AddLogging(loggingBuilder => {
     loggingBuilder.AddFile("logs\\app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts =>
@@ -42,7 +50,7 @@ builder.Services.AddLogging(loggingBuilder => {
     });
 });
 
-//builder.Services.AddScoped<IPasswordHasher<IdentityUser>, Argon2Hasher<IdentityUser>>();
+//builder.Services.AddScoped<IPasswordHasher<IdentityUser>, Argon2Hasher<IdentityUser>>(); Uncomment this line to implement Argon Hasher
 builder.Services.Configure<PasswordHasherOptions>(option =>
 {
     option.IterationCount = 160000;
@@ -51,17 +59,6 @@ builder.Services.Configure<PasswordHasherOptions>(option =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
-
-
-
-//    string pathToLog = Path.Combine(Directory.GetCurrentDirectory(), "logs");
-//    if (Directory.Exists(pathToLog) == false)
-//    {
-//        Directory.CreateDirectory(pathToLog);
-//    builder.Logging.AddFile(pathToLog);
-//}
-
-   // builder.Logging.AddFile(pathToLog);
 
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
