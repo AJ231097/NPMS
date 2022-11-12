@@ -114,7 +114,7 @@ namespace NPMS.Controllers
         {
             if(ModelState.IsValid)
             {
-                _logger.LogInformation((EventId)103, "Sign in attempt by user {user} with password {password} on {date}", model.Username,model.Password, DateTime.UtcNow);
+                _logger.LogInformation((EventId)103, "Sign in attempt by user {user} on {date}", model.Username, DateTime.UtcNow);
                 var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure:true);
                 if(result.Succeeded)
                 {
@@ -131,7 +131,7 @@ namespace NPMS.Controllers
                 }
                 else
                 {
-                    _logger.LogWarning((EventId)105, "Failed attempt by user {user} with password {password} on {date}", model.Username, model.Password, DateTime.UtcNow);
+                    _logger.LogWarning((EventId)105, "Failed attempt by user {user} on {date}", model.Username, DateTime.UtcNow);
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
                     
 

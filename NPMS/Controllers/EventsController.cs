@@ -170,11 +170,5 @@ namespace NPMS.Controllers
         {
           return _context.Events.Any(e => e.EventId == id);
         }
-
-        //[Authorize]
-        //public async Task<IActionResult> SignUp()
-        //{
-        //    return RedirectToAction("Index", "Passes");
-        //}
     }
 }

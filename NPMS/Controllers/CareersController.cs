@@ -194,7 +194,7 @@ namespace NPMS.Controllers
                         
                         
                     }
-                    _logger.LogInformation((EventId)106, "Successfully uploaded {filename} to {path} on {date}", newFilename, path, DateTime.UtcNow);
+                    _logger.LogInformation((EventId)106, "Successfully uploaded {filename} on {date}", newFilename, DateTime.UtcNow);
                     return View("UploadSuccess");
 
                 }
