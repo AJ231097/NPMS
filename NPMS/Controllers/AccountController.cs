@@ -139,5 +139,30 @@ namespace NPMS.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult ChangePassword() => View(new ChangePasswordViewModel());
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await userManager.ChangePasswordAsync(await userManager.GetUserAsync(User), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    _logger.LogWarning((EventId)110, "Password changed by user {user} on {date}", await userManager.GetUserAsync(User), DateTime.UtcNow);
+                    return View("ChangePasswordSuccess");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    _logger.LogWarning((EventId)111, "Password change failed by user {user} on {date}", await userManager.GetUserAsync(User), DateTime.UtcNow);
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
     }
 }
