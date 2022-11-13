@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPMS", "NPMS.csproj", "{D3B27485-E2FA-4CE8-979D-15D8C3635051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPMS.Tests", "..\NPMS.Tests\NPMS.Tests.csproj", "{918CA337-E6A9-4054-AEE5-5301C38EDCCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D3B27485-E2FA-4CE8-979D-15D8C3635051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3B27485-E2FA-4CE8-979D-15D8C3635051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3B27485-E2FA-4CE8-979D-15D8C3635051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{918CA337-E6A9-4054-AEE5-5301C38EDCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{918CA337-E6A9-4054-AEE5-5301C38EDCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{918CA337-E6A9-4054-AEE5-5301C38EDCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{918CA337-E6A9-4054-AEE5-5301C38EDCCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -47,7 +47,7 @@ namespace NPMS.Controllers
         }
 
         // GET: Parks/Create
-        //[Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             return View();

@@ -155,8 +155,10 @@ namespace NPMS.Controllers
                 return Problem("Entity set 'NPMSContext.Passes'  is null.");
             }
             var passes = await _context.Passes.FindAsync(id);
+            var username = HttpContext.User.Identity.Name;
             if (passes != null)
             {
+                _logger.LogWarning((EventId)201, "{passid} deleted by {user} on {date}", id, username, DateTime.UtcNow);
                 _context.Passes.Remove(passes);
             }
             

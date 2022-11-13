@@ -5,10 +5,14 @@
 }
 
 <h1> Parks</h1>&nbsp;
-<p>
-    <a asp-action="Create">Add New Park</a>
-</p>
+@if (User.IsInRole("Admins"))
+{
 
+
+    <p>
+        <a asp-action="Create">Add New Park</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
