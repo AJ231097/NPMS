@@ -104,6 +104,11 @@ namespace NPMS.Controllers
             return -1;
         }
 
+        public IActionResult ViewCart()
+        {
+            return RedirectToAction("AddedToCart");
+        }
+
 
     }
 }
