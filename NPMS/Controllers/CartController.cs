@@ -16,10 +16,12 @@ namespace NPMS.Controllers
             _context = context;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Passes.ToListAsync());
         }
+        [Authorize]
         public IActionResult AddedToCart()
         {
             var cart = SessionHelper.GetObjectFromJson<List<OrderDetails>>(HttpContext.Session, "cart");
@@ -78,6 +80,7 @@ namespace NPMS.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public IActionResult Remove(int Id)
         {
             List<OrderDetails> cart = SessionHelper.GetObjectFromJson<List<OrderDetails>>(HttpContext.Session, "cart");
@@ -87,7 +90,7 @@ namespace NPMS.Controllers
             return RedirectToAction("FinalCart");
         }
 
-
+        [Authorize]
         private int isExist(int Id)
         {
             List<OrderDetails> cart = SessionHelper.GetObjectFromJson<List<OrderDetails>>(HttpContext.Session, "cart");
