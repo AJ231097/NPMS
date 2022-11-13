@@ -65,18 +65,18 @@ namespace NPMS.Controllers
                     {
                         System.Diagnostics.Debug.WriteLine("Email Failed");
                     }
-                }
-                bool emailStatus = await userManager.IsEmailConfirmedAsync(user);
-                if(emailStatus)
-                {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    //message = $"Successfully registered user {model.Username}";
-                    _logger.LogInformation((EventId)102, "Successfully registered a user {user} on {date}", model.Username, DateTime.UtcNow);
-                }
-                else
-                {
-                    //ModelState.AddModelError(string.Empty, "Verify the User");
-                    return View("Error","Email");
+                    bool emailStatus = await userManager.IsEmailConfirmedAsync(user);
+                    if (emailStatus)
+                    {
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        //message = $"Successfully registered user {model.Username}";
+                        _logger.LogInformation((EventId)102, "Successfully registered a user {user} on {date}", model.Username, DateTime.UtcNow);
+                    }
+                    else
+                    {
+                        //ModelState.AddModelError(string.Empty, "Verify the User");
+                        return View("Error", "Email");
+                    }
                 }
                     
                     
