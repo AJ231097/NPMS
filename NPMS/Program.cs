@@ -16,7 +16,7 @@ builder.Services.AddDbContext<NPMSContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NPMSContext") ?? throw new InvalidOperationException("Connection string 'NPMSContext' not found.")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<NPMSContext>().AddDefaultTokenProviders();
+        .AddEntityFrameworkStores<NPMSContext>().AddDefaultTokenProviders().AddPasswordValidator<CustomPasswordValidator<IdentityUser>>();
 builder.Services.AddSession();
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -24,8 +24,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(24);
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    //options.Password.RequiredLength = 15;
-    //options.Password.RequiredUniqueChars = 1;
+    options.Password.RequiredLength = 15;
+    options.Password.RequiredUniqueChars = 1;
 
 });
 
@@ -54,6 +54,12 @@ builder.Services.AddLogging(loggingBuilder => {
 builder.Services.Configure<PasswordHasherOptions>(option =>
 {
     option.IterationCount = 160000;
+});
+builder.Services.AddAntiforgery(options =>
+{
+    options.FormFieldName = "AntiForgeryFieldName";
+    options.HeaderName = "AntiForgeryHeaderName";
+    options.Cookie.Name = "AntiForgeryCookieName";
 });
 
 // Add services to the container.

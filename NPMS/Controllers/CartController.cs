@@ -87,7 +87,7 @@ namespace NPMS.Controllers
             int index = isExist(Id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return RedirectToAction("FinalCart");
+            return RedirectToAction("AddedToCart");
         }
 
         [Authorize]
