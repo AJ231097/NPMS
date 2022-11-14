@@ -26,8 +26,17 @@ namespace NPMS.Controllers
         {
             var cart = SessionHelper.GetObjectFromJson<List<OrderDetails>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(item => item.PassPrice);
-            return View();
+            if (ViewBag.cart == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+
+                ViewBag.total = cart.Sum(item => item.PassPrice);
+                return View();
+            }
         }
 
         public Passes GetPassById(int Id)
