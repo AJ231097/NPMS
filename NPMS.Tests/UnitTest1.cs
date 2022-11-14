@@ -69,25 +69,5 @@ namespace NPMS.Tests
             Assert.Equal(200, code);
         }
 
-        //[Fact]
-        //public async void RegisterTest()
-        //{
-            
-        //    var client = _webApplicationFactory.CreateClient();
-        //    var response = await client.PostAsync("https://localhost:7223/Account/Register", new StringContent(JsonConvert.SerializeObject(new RegisterViewModel()
-        //    {
-        //        Username = "2",
-        //        Email = "hg@gmail.com",
-        //        Password="test1@123",
-        //        ConfirmedPassword="test1@123"
-
-               
-        //    })));
-
-        //    //response.EnsureSuccessStatusCode();
-
-        //    response.StatusCode.Should().Be(HttpStatusCode.OK);
-        //}
-
     }
 }

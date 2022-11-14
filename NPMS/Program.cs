@@ -25,7 +25,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(24);
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.Password.RequiredLength = 15;
-    options.Password.RequiredUniqueChars = 1;
+    options.Password.RequiredUniqueChars = 6;
 
 });
 
