@@ -175,44 +175,52 @@ namespace NPMS.Controllers
         [RequestSizeLimit(3145728)]
         public async Task<IActionResult> UploadFile(IFormFile FormFile)
         {
-            ViewBag.Message = "";
-            try
+            
+            if (FormFile == null)
             {
-
-                string file = Path.GetFileName(FormFile.FileName);
-                var ext = Path.GetExtension(file).ToLowerInvariant();
-                string[] permittedExtensions = { ".docx", ".pdf" };
-                if (!string.IsNullOrEmpty(ext) && permittedExtensions.Contains(ext))
-                {
-                    string newFilename = $"{Path.GetRandomFileName()}{Guid.NewGuid()}.{ext}";
-                    string tempFolderPath = GetTemporaryDirectory();
-                    string path = Path.Combine(tempFolderPath, newFilename);
-
-
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        await FormFile.CopyToAsync(fileStream);
-                        
-                        
-                    }
-                    _logger.LogInformation((EventId)106, "Successfully uploaded {filename} on {date}", newFilename, DateTime.UtcNow);
-                    return View("UploadSuccess");
-
-                }
-                else
-                {
-                    _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.UtcNow);
-                    return View("UploadFileError");
-                    
-                }
+                ViewBag.Message = "File not uploaded";
             }
-            catch (Exception ex)
+            else
             {
-                //string message = $"Error occurred while reading the file. {ex.Message}";
-                _logger.LogError((EventId)107,"Error uploading in file. Activity performed on {date}",DateTime.UtcNow);
+
+
+                try
+                {
+                    string file = Path.GetFileName(FormFile.FileName);
+                    var ext = Path.GetExtension(file).ToLowerInvariant();
+                    string[] permittedExtensions = { ".docx", ".pdf" };
+                    if (!string.IsNullOrEmpty(ext) && permittedExtensions.Contains(ext))
+                    {
+                        string newFilename = $"{Path.GetRandomFileName()}{Guid.NewGuid()}.{ext}";
+                        string tempFolderPath = GetTemporaryDirectory();
+                        string path = Path.Combine(tempFolderPath, newFilename);
+
+
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await FormFile.CopyToAsync(fileStream);
+
+
+                        }
+                        _logger.LogInformation((EventId)106, "Successfully uploaded {filename} on {date}", newFilename, DateTime.UtcNow);
+                        return View("UploadSuccess");
+
+                    }
+                    else
+                    {
+                        _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.UtcNow);
+                        return View("UploadFileError");
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //string message = $"Error occurred while reading the file. {ex.Message}";
+                    _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.UtcNow);
+                }
+                
             }
             return View("UploadFileError");
-
 
 
 
