@@ -178,6 +178,7 @@ namespace NPMS.Controllers
             ViewBag.Message = "";
             try
             {
+
                 string file = Path.GetFileName(FormFile.FileName);
                 var ext = Path.GetExtension(file).ToLowerInvariant();
                 string[] permittedExtensions = { ".docx", ".pdf" };
