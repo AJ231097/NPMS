@@ -216,7 +216,7 @@ namespace NPMS.Controllers
                 catch (Exception ex)
                 {
                     //string message = $"Error occurred while reading the file. {ex.Message}";
-                    _logger.LogError((EventId)107, "Error uploading in file. Activity performed on {date}", DateTime.UtcNow);
+                    _logger.LogError((EventId)107, "Error uploading in file. {message}.Activity performed on {date}",ex.Message, DateTime.UtcNow);
                 }
                 
             }
