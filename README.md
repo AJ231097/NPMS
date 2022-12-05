@@ -52,11 +52,11 @@ Update-Database
 
 4. Now run the application by clicking the NPMS button at the center of the toolbar which starts the application.
 
-**Users**
-The application has 2 roles 
-Admin: Has control over the application
-User: A normal user or customer who can access the application over internet.
-*Please use these credentials to login as admin*
-Username: test
+**Users** <br />
+The application has 2 roles <br />
+Admin: Has control over the application <br />
+User: A normal user or customer who can access the application over internet. <br />
+*Please use these credentials to login as admin* <br />
+Username: test <br />
 Password: Test@123
 
